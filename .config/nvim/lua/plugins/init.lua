@@ -58,4 +58,8 @@ return {
     event = "BufWritePre", -- uncomment for format on save
     opts = require "configs.conform",
   },
+  {
+    "christoomey/vim-tmux-navigator",
+    lazy = false,
+  },
 }
