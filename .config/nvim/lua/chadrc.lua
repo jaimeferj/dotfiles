@@ -1,4 +1,3 @@
----@type ChadrcConfig
 local M = {}
 
 M.ui = { theme = 'rosepine' }

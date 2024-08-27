@@ -2,6 +2,7 @@ return {
 
   {
     "nvim-lua/plenary.nvim",
+    event = false,
   },
 
   {
@@ -15,6 +16,7 @@ return {
 
   {
     "nvim-treesitter/nvim-treesitter",
+    lazy = false,
     opts = {
       ensure_installed = {
         "vim",
@@ -58,6 +60,7 @@ return {
     event = "BufWritePre", -- uncomment for format on save
     opts = require "configs.conform",
   },
+
   {
     "christoomey/vim-tmux-navigator",
     lazy = false,
