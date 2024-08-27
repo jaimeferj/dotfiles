@@ -4,3 +4,6 @@
 [user]
 	email = jaimefdez7@gmail.com
 	name = Jaime Fernández
+[merge]
+	tool = vimdiff
+	conflictstyle = diff3
