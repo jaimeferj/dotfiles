@@ -30,10 +30,23 @@ return {
 
   {
     "williamboman/mason.nvim",
+    lazy = false,
+    config = function()
+      require("mason").setup()
+    end,
+  },
+  {
+    "williamboman/mason-lspconfig",
+    lazy = false,
+    opts = {
+      ensure_installed = { "lua_ls", "gopls", "ruff", "pyright" },
+      automatic_installation = true
+    },
   },
 
   {
     "neovim/nvim-lspconfig",
+    lazy = false,
     config = function()
       require "nvchad.configs.lspconfig"
       require "configs.lspconfig"

@@ -49,4 +49,6 @@ lspconfig.gopls.setup {
   filetypes = { "go" },
 }
 
+lspconfig.lua_ls.setup {}
+
 vim.keymap.set("n", "<leader>r", vim.lsp.buf.rename)
