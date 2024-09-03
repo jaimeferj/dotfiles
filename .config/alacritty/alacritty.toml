@@ -89,6 +89,11 @@ semantic_escape_chars = ",│`|:\"' ()[]{}<>"
 
 [shell]
 program = "/bin/zsh"
+args = [
+    "-l",
+    "-c",
+    "tmux attach || tmux"
+    ]
 
 [window]
 decorations = "full"
