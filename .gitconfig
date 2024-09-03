@@ -1,3 +1,6 @@
+[core]
+	editor = nvim
+
 [url "git@github.com:jaimeferj/"]
   insteadOf = "gh:"
 
