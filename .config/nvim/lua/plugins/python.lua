@@ -20,10 +20,11 @@ return {
       end
     end,
   },
-
+  "nvim-telescope/telescope-dap.nvim",
   {
     "mfussenegger/nvim-dap",
     config = function()
+      require('telescope').load_extension('dap')
       map("n", "<leader>bb", "<cmd> DapToggleBreakpoint <CR>")
       map("n", "<leader>bc", "<cmd> lua require'dap'.set_breakpoint(vim.fn.input('Breakpoint condition: ')) <CR>")
       map(
@@ -73,6 +74,25 @@ return {
     config = function(_, opts)
       local path = "~/.local/share/nvim/mason/packages/debugpy/venv/bin/python"
       require("dap-python").setup(path)
+      table.insert(require('dap').configurations.python, {
+        type = 'python',
+        request = 'attach',
+        name = 'Remote Python: Attach',
+        port = 5678,
+        host = "127.0.0.1",
+        mode = "remote",
+        cwd = vim.fn.getcwd(),
+        pathMappings = {
+          {
+            localRoot = function()
+              return vim.fn.input("Local code folder > ", vim.fn.getcwd(), "file")
+            end,
+            remoteRoot = function()
+              return vim.fn.input("Container code folder > ", "/", "file")
+            end,
+          },
+        },
+      })
     end,
   },
 
