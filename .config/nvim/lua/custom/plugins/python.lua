@@ -1,19 +1,4 @@
-local map = vim.keymap.set
-
 return {
-  {
-    'mfussenegger/nvim-dap-python',
-    ft = 'python',
-    dependencies = {
-      'mfussenegger/nvim-dap',
-      'rcarriga/nvim-dap-ui',
-      'nvim-neotest/nvim-nio',
-    },
-    config = function(_, opts)
-      local path = '~/.local/share/nvim/mason/packages/debugpy/venv/bin/python'
-      require('dap-python').setup(path)
-    end,
-  },
 
   {
     'linux-cultist/venv-selector.nvim',
@@ -21,11 +6,7 @@ return {
       'neovim/nvim-lspconfig',
       'mfussenegger/nvim-dap',
       'mfussenegger/nvim-dap-python', --optional
-      {
-        'nvim-telescope/telescope.nvim',
-        branch = '0.1.x',
-        dependencies = { 'nvim-lua/plenary.nvim' },
-      },
+      'nvim-telescope/telescope.nvim',
     },
     lazy = false,
     branch = 'regexp', -- This is the regexp branch, use this for the new version
@@ -36,8 +17,10 @@ return {
       { ',v', '<cmd>VenvSelect<cr>' },
     },
   },
+
   {
     'Vigemus/iron.nvim',
+    ft = 'python',
     event = 'VeryLazy',
     config = function()
       local iron = require 'iron.core'
@@ -65,16 +48,16 @@ return {
         -- Iron doesn't set keymaps by default anymore.
         -- You can set them here or manually add keymaps to the functions in iron.core
         keymaps = {
-          send_motion = '<space>sc',
-          visual_send = '<space>sc',
-          send_file = '<space>sf',
-          send_line = '<space>sl',
-          send_paragraph = '<space>sp',
-          send_until_cursor = '<space>su',
-          cr = '<space>s<cr>',
-          interrupt = '<space>s<space>',
-          exit = '<space>sq',
-          clear = '<space>cl',
+          --          send_motion = '<space>sc',
+          --          visual_send = '<space>sc',
+          --          send_file = '<space>sf',
+          --          send_line = '<space>sl',
+          --          send_paragraph = '<space>sp',
+          --          send_until_cursor = '<space>su',
+          --          cr = '<space>s<cr>',
+          --          interrupt = '<space>s<space>',
+          --          exit = '<space>sq',
+          --          clear = '<space>cl',
         },
         -- If the highlight is on, you can change how it looks
         -- For the available options, check nvim_set_hl
