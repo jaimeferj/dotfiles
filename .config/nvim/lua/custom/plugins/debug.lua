@@ -21,7 +21,16 @@ return {
       local dapui = require 'dapui'
       return {
         -- Basic debugging keymaps, feel free to change to your liking!
-        { '<F5>', dap.continue, desc = 'Debug: Start/Continue' },
+        {
+          '<F5>',
+          function()
+            if vim.fn.filereadable '.vscode/launch.json' then
+              require('dap.ext.vscode').load_launchjs()
+            end
+            require('dap').continue()
+          end,
+          desc = 'Debug: Start/Continue',
+        },
         { '<F1>', dap.step_into, desc = 'Debug: Step Into' },
         { '<F2>', dap.step_over, desc = 'Debug: Step Over' },
         { '<F3>', dap.step_out, desc = 'Debug: Step Out' },
@@ -98,6 +107,7 @@ return {
         ensure_installed = {
           -- Update this to ensure that you have the debuggers for the langs you want
           'python',
+          'debugpy',
           'delve',
         },
       }
@@ -148,7 +158,7 @@ return {
       table.insert(require('dap').configurations.python, {
         type = 'python',
         request = 'attach',
-        name = 'Remote Python: Attach',
+        name = 'Remote Python: Attach manual',
         port = 5678,
         host = '127.0.0.1',
         mode = 'remote',

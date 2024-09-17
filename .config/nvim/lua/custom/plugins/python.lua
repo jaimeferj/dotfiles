@@ -48,16 +48,16 @@ return {
         -- Iron doesn't set keymaps by default anymore.
         -- You can set them here or manually add keymaps to the functions in iron.core
         keymaps = {
-          --          send_motion = '<space>sc',
-          --          visual_send = '<space>sc',
-          --          send_file = '<space>sf',
-          --          send_line = '<space>sl',
-          --          send_paragraph = '<space>sp',
-          --          send_until_cursor = '<space>su',
-          --          cr = '<space>s<cr>',
-          --          interrupt = '<space>s<space>',
-          --          exit = '<space>sq',
-          --          clear = '<space>cl',
+          send_motion = '<space>xc',
+          visual_send = '<space>xv',
+          send_file = '<space>xf',
+          send_line = '<space>xl',
+          send_paragraph = '<space>xp',
+          send_until_cursor = '<space>xu',
+          cr = '<space>x<cr>',
+          interrupt = '<space>x<space>',
+          exit = '<space>xq',
+          -- clear = '<space>cl',
         },
         -- If the highlight is on, you can change how it looks
         -- For the available options, check nvim_set_hl
@@ -72,8 +72,8 @@ return {
       vim.keymap.set('n', '<space>rr', '<cmd>IronRestart<cr>')
       vim.keymap.set('n', '<space>rf', '<cmd>IronFocus<cr>')
       vim.keymap.set('n', '<space>rh', '<cmd>IronHide<cr>')
-      vim.keymap.set('n', '<space>x', function()
-        vim.cmd.normal ' sciN'
+      vim.keymap.set('n', '<space>xx', function()
+        vim.cmd.normal ' xciN'
         vim.cmd.normal 'vaN'
         vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes('<esc>', true, false, true), 'n', true)
       end, { noremap = true, silent = true })
