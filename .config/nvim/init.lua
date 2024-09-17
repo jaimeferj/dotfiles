@@ -457,9 +457,7 @@ require('lazy').setup({
           filetypes = { 'python' },
         },
         ruff = {
-          on_attach = function(client, _)
-            client.server_capabilities.hoverProvider = false
-          end,
+          capabilities = { hoverProvider = false },
           filetypes = { 'python' },
         },
         gopls = {
@@ -508,6 +506,26 @@ require('lazy').setup({
         handlers = {
           function(server_name)
             local server = servers[server_name] or {}
+            if server_name == 'ruff' then
+              local ruff_config_path = vim.loop.os_homedir() .. '/.config/ruff/ruff.toml'
+              local project_ruff_config = vim.loop.cwd() .. '/ruff.toml'
+              local f = io.open(project_ruff_config, 'r')
+              if f ~= nil then
+                io.close(f)
+                ruff_config_path = project_ruff_config
+              end
+              local init_options = {
+                settings = {
+                  format = {
+                    args = { '--config=' .. ruff_config_path },
+                  },
+                  lint = {
+                    args = { '--config=' .. ruff_config_path },
+                  },
+                },
+              }
+              server.init_options = vim.tbl_deep_extend('force', {}, init_options, server.init_options or {})
+            end
             -- This handles overriding only values explicitly passed
             -- by the server configuration above. Useful when disabling
             -- certain features of an LSP (for example, turning off formatting for ts_ls)
