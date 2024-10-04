@@ -155,6 +155,25 @@ return {
     config = function(_, _)
       local path = '~/.local/share/nvim/mason/packages/debugpy/venv/bin/python'
       require('dap-python').setup(path)
+
+      local get_python_path = function()
+        local venv_path = os.getenv 'VIRTUAL_ENV'
+        if venv_path then
+          return venv_path .. '/bin/python'
+        end
+
+        return nil
+      end
+
+      table.insert(require('dap').configurations.python, {
+        justMyCode = false,
+        type = 'python',
+        request = 'launch',
+        name = 'Python Launch File: JustMyCode=false',
+        program = '${file}',
+        cwd = vim.fn.getcwd(),
+        pythonPath = get_python_path(),
+      })
       table.insert(require('dap').configurations.python, {
         type = 'python',
         request = 'attach',
