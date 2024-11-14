@@ -45,6 +45,7 @@ zinit cdreplay -q
 bindkey -v
 bindkey '^p' history-search-backward
 bindkey '^n' history-search-forward
+bindkey '^y' autosuggest-accept
 
 
 # History
