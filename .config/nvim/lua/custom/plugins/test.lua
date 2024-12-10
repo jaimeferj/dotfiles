@@ -27,11 +27,25 @@ return {
           desc = 'Test: [N]ext',
         },
         {
+          '<leader>tl',
+          function()
+            nt.run.run()
+          end,
+          desc = 'Test: [L]ast',
+        },
+        {
           '<leader>tdn',
           function()
             nt.run.run { strategy = 'dap' }
           end,
           desc = 'Test: [D]ebug [N]ext',
+        },
+        {
+          '<leader>tdl',
+          function()
+            nt.run.run_last { strategy = 'dap' }
+          end,
+          desc = 'Test: [D]ebug [L]ast',
         },
         {
           '<leader>tsn',
@@ -87,6 +101,15 @@ return {
           },
         },
       }
+      local neotest = require 'neotest'
+
+      local original_run = neotest.run.run
+      neotest.run.run = function(...)
+        print('[Neotest Debug] run.run called with:', vim.inspect(...))
+        local result = original_run(...)
+        print('[Neotest Debug] run.run result:', vim.inspect(result))
+        return result
+      end
     end,
   },
 }

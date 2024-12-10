@@ -3,7 +3,43 @@ return {
     'mfussenegger/nvim-dap',
     dependencies = {
       -- Creates a beautiful debugger UI
-      'rcarriga/nvim-dap-ui',
+      {
+        'rcarriga/nvim-dap-ui',
+        opts = {
+          icons = { expanded = '▾', collapsed = '▸', current_frame = '*' },
+          controls = {
+            icons = {
+              pause = '⏸',
+              play = '▶',
+              step_into = '⏎',
+              step_over = '⏭',
+              step_out = '⏮',
+              step_back = 'b',
+              run_last = '▶▶',
+              terminate = '⏹',
+              disconnect = '⏏',
+            },
+          },
+          layouts = {
+            {
+              elements = {
+                { id = 'stacks', size = 0.3 },
+                { id = 'breakpoints', size = 0.2 },
+                { id = 'scopes', size = 0.5 },
+              },
+              position = 'left',
+              size = 40,
+            },
+            -- {
+            --   elements = {
+            --     { id = 'repl', size = 1.0 },
+            --   },
+            --   position = 'bottom',
+            --   size = 5,
+            -- },
+          },
+        },
+      },
 
       -- Required dependency for nvim-dap-ui
       'nvim-neotest/nvim-nio',
@@ -15,6 +51,18 @@ return {
       -- Add your own debuggers here
       'leoluz/nvim-dap-go',
       'mfussenegger/nvim-dap-python',
+      {
+        'jbyuki/one-small-step-for-vimkind',
+        keys = {
+          {
+            '<leader>bsl',
+            function()
+              require('osv').launch { port = 8086 }
+            end,
+            desc = 'Launch Lua adapter',
+          },
+        },
+      },
     },
     keys = function(_, keys)
       local dap = require 'dap'
@@ -112,25 +160,6 @@ return {
         },
       }
 
-      -- Dap UI setup
-      -- For more information, see |:help nvim-dap-ui|
-      dapui.setup {
-        icons = { expanded = '▾', collapsed = '▸', current_frame = '*' },
-        controls = {
-          icons = {
-            pause = '⏸',
-            play = '▶',
-            step_into = '⏎',
-            step_over = '⏭',
-            step_out = '⏮',
-            step_back = 'b',
-            run_last = '▶▶',
-            terminate = '⏹',
-            disconnect = '⏏',
-          },
-        },
-      }
-
       dap.listeners.after.event_initialized['dapui_config'] = dapui.open
       dap.listeners.before.event_terminated['dapui_config'] = dapui.close
       dap.listeners.before.event_exited['dapui_config'] = dapui.close
@@ -139,6 +168,19 @@ return {
       require('dap-go').setup {
         delve = {
           detached = vim.fn.has 'win32' == 0,
+        },
+      }
+
+      -- Lua Configuration
+      dap.adapters.nlua = function(callback, config)
+        callback { type = 'server', host = config.host or '127.0.0.1', port = config.port or 8086 }
+      end
+
+      dap.configurations['lua'] = {
+        {
+          type = 'nlua',
+          request = 'attach',
+          name = 'Attach to running Neovim instance',
         },
       }
     end,
