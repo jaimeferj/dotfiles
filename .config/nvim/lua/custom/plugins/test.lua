@@ -8,6 +8,7 @@ return {
       'antoinemadec/FixCursorHold.nvim',
       'nvim-treesitter/nvim-treesitter',
       'nvim-neotest/neotest-python',
+      { 'fredrikaverpil/neotest-golang', version = '*' },
     },
     keys = function(_, keys)
       local nt = require 'neotest'
@@ -99,6 +100,7 @@ return {
             args = { '--log-level', 'DEBUG' },
             runner = 'pytest',
           },
+          require 'neotest-golang',
         },
       }
       local neotest = require 'neotest'

@@ -487,6 +487,9 @@ require('lazy').setup({
         },
         biome = {},
         shfmt = {},
+        postgres_lsp = {
+          filetypes = { 'sql' },
+        },
       }
 
       -- Ensure the servers and tools above are installed
