@@ -81,6 +81,15 @@ vim.keymap.set('n', '<right>', '<cmd>echo "Use l to move!!"<CR>')
 vim.keymap.set('n', '<up>', '<cmd>echo "Use k to move!!"<CR>')
 vim.keymap.set('n', '<down>', '<cmd>echo "Use j to move!!"<CR>')
 
+-- Execute current lua line
+vim.keymap.set('v', '<leader>xx', ':lua<CR>')
+vim.keymap.set('n', '<leader>xx', ':.lua<CR>')
+
+-- Quickfix List
+
+vim.keymap.set('n', '<leader>j', '<cmd>cnext<cr>', { desc = 'Go to next quickfix' })
+vim.keymap.set('n', '<leader>k', '<cmd>cprev<cr>', { desc = 'Go to previous quickfix' })
+
 -- [[ Basic Autocommands ]]
 --  See `:help lua-guide-autocommands`
 
@@ -93,14 +102,15 @@ vim.api.nvim_create_autocmd('TextYankPost', {
   end,
 })
 
+vim.opt_local.expandtab = true
+vim.opt_local.shiftwidth = 4
+vim.opt_local.tabstop = 4
+vim.opt_local.softtabstop = 4
+
 vim.api.nvim_create_autocmd('FileType', {
   pattern = 'python',
   callback = function()
     -- use pep8 standards
-    vim.opt_local.expandtab = true
-    vim.opt_local.shiftwidth = 4
-    vim.opt_local.tabstop = 4
-    vim.opt_local.softtabstop = 4
     -- folds based on indentation https://neovim.io/doc/user/fold.html#fold-indent
     -- if you are a heavy user of folds, consider using `nvim-ufo`
     -- vim.opt_local.foldmethod = "indent"
@@ -487,9 +497,9 @@ require('lazy').setup({
         },
         biome = {},
         shfmt = {},
-        postgres_lsp = {
-          filetypes = { 'sql' },
-        },
+        -- postgres_lsp = {
+        --   filetypes = { 'sql' },
+        -- },
       }
 
       -- Ensure the servers and tools above are installed
