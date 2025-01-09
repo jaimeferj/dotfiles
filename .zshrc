@@ -34,6 +34,11 @@ zinit snippet OMZP::sudo
 autoload bashcompinit && bashcompinit
 autoload -Uz compinit && compinit
 
+## Load rabbitmqadmin autocompletion if exists
+if [[ -a /etc/bash_completion.d/rabbitmqadmin ]]; then
+  source /etc/bash_completion.d/rabbitmqadmin
+fi
+
 complete -C '/usr/local/bin/aws_completer' aws
 
 zinit cdreplay -q
