@@ -117,6 +117,14 @@ vim.api.nvim_create_autocmd('FileType', {
   end,
 })
 
+-- Set the default file type to `yaml` for `.yml.sample` files
+vim.api.nvim_create_autocmd({ 'BufRead', 'BufNewFile' }, {
+  pattern = '*.yml.sample',
+  callback = function()
+    vim.bo.filetype = 'yaml'
+  end,
+})
+
 -- [[ Install `lazy.nvim` plugin manager ]]
 --    See `:help lazy.nvim.txt` or https://github.com/folke/lazy.nvim for more info
 local lazypath = vim.fn.stdpath 'data' .. '/lazy/lazy.nvim'
