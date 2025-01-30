@@ -78,6 +78,7 @@ alias ls='ls --color'
 alias nvim='nvim'
 alias c='clear'
 alias aenv='source .venv/bin/activate'
+alias cenv='python -m venv .venv'
 alias denv='rm -r -I -v .venv'
 
 # Shell integrations
