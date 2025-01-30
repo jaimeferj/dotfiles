@@ -32,12 +32,10 @@ return {
           -- Your repl definitions come here
           repl_definition = {
             sh = {
-              -- Can be a table or a function that
-              -- returns a table (see below)
               command = { 'zsh' },
             },
             python = {
-              command = { 'python' }, -- or { "ipython", "--no-autoindent" }
+              command = { 'ipython', '--no-autoindent' }, -- { "ipython", "--no-autoindent" } or { "python" }
               format = require('iron.fts.common').bracketed_paste_python,
             },
           },
