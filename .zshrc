@@ -77,6 +77,8 @@ zstyle ':fzf-tab:complete:__zoxide_z:*' fzf-preview 'ls --color $realpath'
 alias ls='ls --color'
 alias nvim='nvim'
 alias c='clear'
+alias aenv='source .venv/bin/activate'
+alias denv='rm -r -I -v .venv'
 
 # Shell integrations
 eval "$(fzf --zsh)"
