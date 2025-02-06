@@ -107,6 +107,7 @@ return {
             require('dap').disconnect()
             require('dapui').close()
           end,
+          desc = 'Debug: Disconnect',
         },
         {
           '<leader>dt',
@@ -114,14 +115,16 @@ return {
             require('dap').terminate()
             require('dapui').close()
           end,
+          desc = 'Debug: Terminate',
         },
-        { '<leader>dr', dap.repl.toggle },
-        { '<leader>dl', dap.run_last },
+        { '<leader>dr', dap.repl.toggle, desc = 'Debug: Toggle REPL' },
+        { '<leader>dl', dap.run_last, desc = 'Debug: Run Last' },
         {
           '<leader>di',
           function()
             require('dap.ui.widgets').hover()
           end,
+          desc = 'Debug: Hover',
         },
         {
           '<leader>d?',
@@ -129,14 +132,16 @@ return {
             local widgets = require 'dap.ui.widgets'
             widgets.centered_float(widgets.scopes)
           end,
+          desc = 'Debug: Scopes',
         },
-        { '<leader>df', '<cmd> Telescope dap frames <CR>' },
-        { '<leader>dh', '<cmd> Telescope dap commands <CR>' },
+        { '<leader>df', '<cmd> Telescope dap frames <CR>', desc = 'Debug: Frames' },
+        { '<leader>dh', '<cmd> Telescope dap commands <CR>', desc = 'Debug: Commands' },
         {
           '<leader>de',
           function()
             require('telescope.builtin').diagnostics { default_text = ':E:' }
           end,
+          desc = 'Debug: Diagnostics',
         },
         unpack(keys),
       }
@@ -205,6 +210,68 @@ return {
         end
 
         return nil
+      end
+
+      local dap = require 'dap'
+
+      dap.adapters.python = function(callback, config)
+        -- Your custom enrichment of the config
+        local final_config = vim.deepcopy(config)
+
+        -- Placeholder expansion for launch directives
+        local placeholders = {
+          ['${file}'] = function(_)
+            return vim.fn.expand '%:p'
+          end,
+          ['${fileBasename}'] = function(_)
+            return vim.fn.expand '%:t'
+          end,
+          ['${fileBasenameNoExtension}'] = function(_)
+            return vim.fn.fnamemodify(vim.fn.expand '%:t', ':r')
+          end,
+          ['${fileDirname}'] = function(_)
+            return vim.fn.expand '%:p:h'
+          end,
+          ['${fileExtname}'] = function(_)
+            return vim.fn.expand '%:e'
+          end,
+          ['${relativeFile}'] = function(_)
+            return vim.fn.expand '%:.'
+          end,
+          ['${relativeFileDirname}'] = function(_)
+            return vim.fn.fnamemodify(vim.fn.expand '%:.:h', ':r')
+          end,
+          ['${workspaceFolder}'] = function(_)
+            return vim.fn.getcwd()
+          end,
+          ['${workspaceFolderBasename}'] = function(_)
+            return vim.fn.fnamemodify(vim.fn.getcwd(), ':t')
+          end,
+          ['${env:([%w_]+)}'] = function(match)
+            return os.getenv(match) or ''
+          end,
+        }
+
+        if final_config.envFile then
+          local filePath = final_config.envFile
+          for key, fn in pairs(placeholders) do
+            filePath = filePath:gsub(key, fn)
+          end
+
+          for line in io.lines(filePath) do
+            local words = {}
+            for word in string.gmatch(line, '[^=]+') do
+              table.insert(words, word)
+            end
+            if not final_config.env then
+              final_config.env = {}
+            end
+            final_config.env[words[1]] = words[2]
+          end
+        end
+
+        -- Call the original adapter function with the enriched config
+        return original_python_adapter(callback, final_config)
       end
 
       table.insert(require('dap').configurations.python, {
