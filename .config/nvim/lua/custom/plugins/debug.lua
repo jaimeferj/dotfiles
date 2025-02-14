@@ -24,19 +24,20 @@ return {
             {
               elements = {
                 { id = 'stacks', size = 0.3 },
-                { id = 'breakpoints', size = 0.2 },
-                { id = 'scopes', size = 0.5 },
+                { id = 'breakpoints', size = 0.1 },
+                { id = 'scopes', size = 0.3 },
+                { id = 'watches', size = 0.2 },
               },
-              position = 'left',
+              position = 'right',
               size = 40,
             },
-            -- {
-            --   elements = {
-            --     { id = 'repl', size = 1.0 },
-            --   },
-            --   position = 'bottom',
-            --   size = 5,
-            -- },
+            {
+              elements = {
+                { id = 'repl', size = 1.0 },
+              },
+              position = 'bottom',
+              size = 5,
+            },
           },
         },
       },
@@ -133,6 +134,14 @@ return {
             widgets.centered_float(widgets.scopes)
           end,
           desc = 'Debug: Scopes',
+        },
+        {
+          '<leader>di',
+          function()
+            require('dap-ui').eval()
+          end,
+          desc = 'Debug: Hover Selection (Eval)',
+          mode = 'v',
         },
         { '<leader>df', '<cmd> Telescope dap frames <CR>', desc = 'Debug: Frames' },
         { '<leader>dh', '<cmd> Telescope dap commands <CR>', desc = 'Debug: Commands' },
