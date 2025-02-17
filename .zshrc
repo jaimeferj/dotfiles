@@ -75,6 +75,7 @@ zstyle ':fzf-tab:complete:__zoxide_z:*' fzf-preview 'ls --color $realpath'
 
 # Aliases
 alias ls='ls --color'
+alias lla='ls -lah'
 alias nvim='nvim'
 alias c='clear'
 alias aenv='source .venv/bin/activate'
