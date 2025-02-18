@@ -94,10 +94,14 @@ return {
     end,
     config = function()
       require('neotest').setup {
+        log_level = vim.log.levels.DEBUG,
         adapters = {
           require 'neotest-python' {
-            dap = { justMyCode = false },
-            args = { '--log-level', 'DEBUG' },
+            dap = { justMyCode = false, env = { PYTHONPATH = vim.fn.getcwd() } },
+            cwd = function(path)
+              return vim.fn.getcwd()
+            end,
+            args = { '--log-level', 'DEBUG', '--rootdir', vim.fn.getcwd(), '--import-mode', 'append' },
             runner = 'pytest',
           },
           require 'neotest-golang',

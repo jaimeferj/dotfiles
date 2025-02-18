@@ -223,6 +223,7 @@ return {
 
       local dap = require 'dap'
 
+      local original_python_adapter = dap.adapters.python
       dap.adapters.python = function(callback, config)
         -- Your custom enrichment of the config
         local final_config = vim.deepcopy(config)
@@ -293,9 +294,20 @@ return {
         pythonPath = get_python_path(),
       })
       table.insert(require('dap').configurations.python, {
-        type = 'python',
+        type = 'debugpy',
         request = 'attach',
         name = 'Remote Python: Attach manual',
+        port = 5678,
+        host = '127.0.0.1',
+        mode = 'remote',
+        localRoot = vim.fn.getcwd(),
+        remoteRoot = vim.fn.getcwd(),
+        cwd = vim.fn.getcwd(),
+      })
+      table.insert(require('dap').configurations.python, {
+        type = 'debugpy',
+        request = 'attach',
+        name = 'Remote Python: Docker Attach manual',
         port = 5678,
         host = '127.0.0.1',
         mode = 'remote',
