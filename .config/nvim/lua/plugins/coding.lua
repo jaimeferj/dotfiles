@@ -161,11 +161,11 @@ return {
       local lint = require 'lint'
       lint.linters_by_ft = {
         markdown = { 'markdownlint' },
+        python = { 'ruff' },
+        javascript = { 'eslint_d' },
+        typescript = { 'eslint_d' },
+        typescriptreact = { 'eslint_d' },
       }
-
-      lint.linters_by_ft = lint.linters_by_ft or {}
-      lint.linters_by_ft['python'] = { 'ruff' }
-      lint.linters_by_ft['markdown'] = { 'markdownlint' }
 
       -- Create autocommand which carries out the actual linting
       -- on the specified events.
