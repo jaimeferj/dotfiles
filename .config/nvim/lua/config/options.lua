@@ -59,7 +59,7 @@ opt.cursorline = true
 opt.scrolloff = 10
 
 -- Tab settings
-vim.opt_local.expandtab = true
-vim.opt_local.shiftwidth = 4
-vim.opt_local.tabstop = 4
-vim.opt_local.softtabstop = 4
+opt.expandtab = true
+opt.shiftwidth = 4
+opt.tabstop = 4
+opt.softtabstop = 4
