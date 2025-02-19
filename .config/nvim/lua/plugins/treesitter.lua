@@ -10,6 +10,7 @@ return {
         'c',
         'diff',
         'html',
+        'css',
         'lua',
         'luadoc',
         'markdown',
