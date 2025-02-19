@@ -107,15 +107,6 @@ return {
           require 'neotest-golang',
         },
       }
-      local neotest = require 'neotest'
-
-      local original_run = neotest.run.run
-      neotest.run.run = function(...)
-        print('[Neotest Debug] run.run called with:', vim.inspect(...))
-        local result = original_run(...)
-        print('[Neotest Debug] run.run result:', vim.inspect(result))
-        return result
-      end
     end,
   },
 }
