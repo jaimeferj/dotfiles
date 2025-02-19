@@ -1,3 +1,4 @@
+local telescope_builtin = require 'telescope.builtin'
 return {
   {
     -- If you want to see what colorschemes are already installed, you can use `:Telescope colorscheme`.
@@ -176,11 +177,11 @@ return {
         -- You can put your default mappings / updates / etc. in here
         --  All the info you're looking for is in `:help telescope.setup()`
         --
-        -- defaults = {
-        --   mappings = {
-        --     i = { ['<c-enter>'] = 'to_fuzzy_refine' },
-        --   },
-        -- },
+        defaults = {
+          mappings = {
+            i = { ['<c-enter>'] = 'to_fuzzy_refine' },
+          },
+        },
         -- pickers = {}
         extensions = {
           ['ui-select'] = {
@@ -192,43 +193,57 @@ return {
       -- Enable Telescope extensions if they are installed
       pcall(require('telescope').load_extension, 'fzf')
       pcall(require('telescope').load_extension, 'ui-select')
-
-      -- See `:help telescope.builtin`
-      local builtin = require 'telescope.builtin'
-      vim.keymap.set('n', '<leader>sh', builtin.help_tags, { desc = '[S]earch [H]elp' })
-      vim.keymap.set('n', '<leader>sk', builtin.keymaps, { desc = '[S]earch [K]eymaps' })
-      vim.keymap.set('n', '<leader>sf', builtin.find_files, { desc = '[S]earch [F]iles' })
-      vim.keymap.set('n', '<leader>ss', builtin.builtin, { desc = '[S]earch [S]elect Telescope' })
-      vim.keymap.set('n', '<leader>sw', builtin.grep_string, { desc = '[S]earch current [W]ord' })
-      vim.keymap.set('n', '<leader>sg', builtin.live_grep, { desc = '[S]earch by [G]rep' })
-      vim.keymap.set('n', '<leader>sd', builtin.diagnostics, { desc = '[S]earch [D]iagnostics' })
-      vim.keymap.set('n', '<leader>sr', builtin.resume, { desc = '[S]earch [R]esume' })
-      vim.keymap.set('n', '<leader>s.', builtin.oldfiles, { desc = '[S]earch Recent Files ("." for repeat)' })
-      vim.keymap.set('n', '<leader><leader>', builtin.buffers, { desc = '[ ] Find existing buffers' })
+    end,
+    keys = {
+      { '<leader>sh', telescope_builtin.help_tags, { desc = '[S]earch [H]elp' }, 'n' },
+      { '<leader>sk', telescope_builtin.keymaps, { desc = '[S]earch [K]eymaps' }, mode = 'n' },
+      { '<leader>sf', telescope_builtin.find_files, { desc = '[S]earch [F]iles' }, mode = 'n' },
+      { '<leader>ss', telescope_builtin.builtin, { desc = '[S]earch [S]elect Telescope' }, mode = 'n' },
+      { '<leader>sw', telescope_builtin.grep_string, { desc = '[S]earch current [W]ord' }, mode = 'n' },
+      { '<leader>sg', telescope_builtin.live_grep, { desc = '[S]earch by [G]rep' }, mode = 'n' },
+      { '<leader>sd', telescope_builtin.diagnostics, { desc = '[S]earch [D]iagnostics' }, mode = 'n' },
+      { '<leader>sr', telescope_builtin.resume, { desc = '[S]earch [R]esume' }, mode = 'n' },
+      { '<leader>s.', telescope_builtin.oldfiles, { desc = '[S]earch Recent Files ("." for repeat)' }, mode = 'n' },
+      { '<leader><leader>', telescope_builtin.buffers, { desc = '[ ] Find existing buffers' }, mode = 'n' },
 
       -- Slightly advanced example of overriding default behavior and theme
-      vim.keymap.set('n', '<leader>/', function()
-        -- You can pass additional configuration to Telescope to change the theme, layout, etc.
-        builtin.current_buffer_fuzzy_find(require('telescope.themes').get_dropdown {
-          winblend = 10,
-          previewer = false,
-        })
-      end, { desc = '[/] Fuzzily search in current buffer' })
+      {
+        '<leader>/',
+        function()
+          -- You can pass additional configuration to Telescope to change the theme, layout, etc.
+          telescope_builtin.current_buffer_fuzzy_find(require('telescope.themes').get_dropdown {
+            winblend = 10,
+            previewer = false,
+          })
+        end,
+        { desc = '[/] Fuzzily search in current buffer' },
+        mode = 'n',
+      },
 
       -- It's also possible to pass additional configuration options.
-      --  See `:help telescope.builtin.live_grep()` for information about particular keys
-      vim.keymap.set('n', '<leader>s/', function()
-        builtin.live_grep {
-          grep_open_files = true,
-          prompt_title = 'Live Grep in Open Files',
-        }
-      end, { desc = '[S]earch [/] in Open Files' })
+      --  See `:help telescope.require 'telescope.builtin'.live_grep()` for information about particular keys
+      {
+        '<leader>s/',
+        function()
+          telescope_builtin.live_grep {
+            grep_open_files = true,
+            prompt_title = 'Live Grep in Open Files',
+          }
+        end,
+        { desc = '[S]earch [/] in Open Files' },
+        mode = 'n',
+      },
 
       -- Shortcut for searching your Neovim configuration files
-      vim.keymap.set('n', '<leader>sn', function()
-        builtin.find_files { cwd = vim.fn.stdpath 'config' }
-      end, { desc = '[S]earch [N]eovim files' })
-    end,
+      {
+        '<leader>sn',
+        function()
+          telescope_builtin.find_files { cwd = vim.fn.stdpath 'config' }
+        end,
+        { desc = '[S]earch [N]eovim files' },
+        mode = 'n',
+      },
+    },
   },
 
   'tpope/vim-sleuth', -- Detect tabstop and shiftwidth automatically

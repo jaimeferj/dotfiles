@@ -10,11 +10,6 @@ vim.api.nvim_create_autocmd('TextYankPost', {
   end,
 })
 
-vim.opt_local.expandtab = true
-vim.opt_local.shiftwidth = 4
-vim.opt_local.tabstop = 4
-vim.opt_local.softtabstop = 4
-
 vim.api.nvim_create_autocmd('FileType', {
   pattern = 'dap-repl-[0-9]*',
   callback = function()
