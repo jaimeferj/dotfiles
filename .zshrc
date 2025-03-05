@@ -34,6 +34,16 @@ zinit snippet OMZP::sudo
 autoload bashcompinit && bashcompinit
 autoload -Uz compinit && compinit
 
+## Load uv autocompletion if exists
+if [[ -a /etc/bash_completion.d/uv ]]; then
+  source /etc/bash_completion.d/uv
+fi
+
+## Load uvx autocompletion if exists
+if [[ -a /etc/bash_completion.d/uvx ]]; then
+  source /etc/bash_completion.d/uvx
+fi
+
 ## Load rabbitmqadmin autocompletion if exists
 if [[ -a /etc/bash_completion.d/rabbitmqadmin ]]; then
   source /etc/bash_completion.d/rabbitmqadmin
