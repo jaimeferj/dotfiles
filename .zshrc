@@ -107,8 +107,11 @@ export NVM_DIR="$HOME/.nvm"
 
 export PATH="$PATH:$HOME/.node/bin"
 
+export PATH=$PATH:/home/jfj/.spicetify
+
+# Set neovim as the default editor
+export EDITOR=nvim
+
 #THIS MUST BE AT THE END OF THE FILE FOR SDKMAN TO WORK!!!
 export SDKMAN_DIR="$HOME/.sdkman"
 [[ -s "$HOME/.sdkman/bin/sdkman-init.sh" ]] && source "$HOME/.sdkman/bin/sdkman-init.sh"
-
-export PATH=$PATH:/home/jfj/.spicetify
