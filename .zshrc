@@ -34,6 +34,10 @@ zinit snippet OMZP::sudo
 autoload bashcompinit && bashcompinit
 autoload -Uz compinit && compinit
 
+# Load edit command line plugin
+autoload -z edit-command-line
+zle -N edit-command-line
+
 ## Load uv autocompletion if exists
 if [[ -a /etc/bash_completion.d/uv ]]; then
   source /etc/bash_completion.d/uv
@@ -61,6 +65,7 @@ bindkey -v
 bindkey '^p' history-search-backward
 bindkey '^n' history-search-forward
 bindkey '^y' autosuggest-accept
+bindkey '^e' edit-command-line
 
 
 # History
