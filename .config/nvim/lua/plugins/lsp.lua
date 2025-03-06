@@ -202,6 +202,10 @@ return {
         },
         -- biome = {},
         shfmt = {},
+        sqlls = {
+          cmd = { 'sql-language-server', 'up', '--method', 'stdio' },
+          filetypes = { 'sql' },
+        },
         jdtls = {},
         -- postgres_lsp = {
         --   filetypes = { 'sql' },
