@@ -88,6 +88,11 @@ semantic_escape_chars = ",│`|:\"' ()[]{}<>"
 
 [terminal.shell]
 program = "/bin/zsh"
+args = [
+    "-l",
+    "-c",
+    "tmux new-session -s testsession"
+    ]
 
 [window]
 decorations = "full"

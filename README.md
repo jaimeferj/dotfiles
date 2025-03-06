@@ -29,3 +29,5 @@ execute `envsubst < ~/.config/alacritty/alacritty-dev.sample.toml >
 configuration (to set $HOME env variable correctly), and then run `alacritty
 --config-file=~/.config/alacritty/alacritty-dev.toml`. After that you can work
 on ~/test-dotfiles and see the changes on your development environment.
+There is also a script that updates the alacritty config with $HOME and runs alacritty
+with the correct configuartion file in `.scripts/run-dev-session.sh`.
