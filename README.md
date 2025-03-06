@@ -22,7 +22,8 @@
 ## Develop
 
 In order to develop and test the configuration, all you have to do is create a
-worktree in ~/test-dotfiles and a test home folder in ~/test-home. After than
+worktree in ~/test-dotfiles (`git worktree add ../test-dotfiles -b develop`)
+and a test home folder in `~/test-home`. After than
 execute `envsubst < ~/.config/alacritty/alacritty-dev.sample.toml >
 ~/.config/alacritty/alacritty-dev.toml` to populate the development alacritty
 configuration (to set $HOME env variable correctly), and then run `alacritty
