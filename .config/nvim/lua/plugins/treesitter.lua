@@ -43,4 +43,7 @@ return {
   {
     'nvim-treesitter/nvim-treesitter-context',
   },
+  {
+    'IndianBoy42/tree-sitter-just',
+  },
 }

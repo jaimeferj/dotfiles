@@ -21,7 +21,7 @@ return {
       { 'williamboman/mason.nvim', config = true }, -- NOTE: Must be loaded before dependants
       'williamboman/mason-lspconfig.nvim',
       'WhoIsSethDaniel/mason-tool-installer.nvim',
-      'nvim-java/nvim-java',
+      { 'nvim-java/nvim-java' },
 
       -- Useful status updates for LSP.
       -- NOTE: `opts = {}` is the same as calling `require('fidget').setup({})`
@@ -31,6 +31,18 @@ return {
       'hrsh7th/cmp-nvim-lsp',
     },
     config = function()
+      require('java').setup {
+        root_markers = {
+          'settings.gradle',
+          'settings.gradle.kts',
+          'pom.xml',
+          'build.gradle',
+          'mvnw',
+          'gradlew',
+          'build.gradle',
+          'build.gradle.kts',
+        },
+      }
       -- Thus, Language Servers are external tools that must be installed separately from
       -- Neovim. This is where `mason` and related plugins come into play.
       --
@@ -190,6 +202,7 @@ return {
         },
         -- biome = {},
         shfmt = {},
+        jdtls = {},
         -- postgres_lsp = {
         --   filetypes = { 'sql' },
         -- },
@@ -241,15 +254,6 @@ return {
             -- certain features of an LSP (for example, turning off formatting for ts_ls)
             server.capabilities = vim.tbl_deep_extend('force', {}, capabilities, server.capabilities or {})
             require('lspconfig')[server_name].setup(server)
-          end,
-          jdtls = function()
-            require('java').setup {
-              -- Your custom jdtls settings goes here
-            }
-
-            require('lspconfig').jdtls.setup {
-              -- Your custom nvim-java configuration goes here
-            }
           end,
         },
       }
