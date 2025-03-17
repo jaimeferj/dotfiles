@@ -17,3 +17,5 @@
   path = ~/work/.gitconfig
 [init]
 	defaultBranch = main
+[branch]
+	sort = comitterdate
