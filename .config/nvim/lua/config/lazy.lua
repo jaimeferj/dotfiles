@@ -23,7 +23,7 @@ local spec = {
 require('lazy').setup {
   spec = spec,
   install = { colorscheme = { 'habamax' } },
-  checker = { enabled = true },
+  checker = { enabled = true, notify = false },
   change_detection = { notify = false },
   concurrency = 2,
   {

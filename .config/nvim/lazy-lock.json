@@ -61,6 +61,7 @@
   "todo-comments.nvim": { "branch": "main", "commit": "304a8d204ee787d2544d8bc23cd38d2f929e7cc5" },
   "tokyonight.nvim": { "branch": "main", "commit": "c8ea87cd34b0267c44a67e90ff8f6e7d6af46ff9" },
   "tree-sitter-just": { "branch": "main", "commit": "bb0c898a80644de438e6efe5d88d30bf092935cd" },
+  "ts-autotag.nvim": { "branch": "master", "commit": "0f1dc38fddd99b468ef58938d7cd99ce1d6bcb0e" },
   "typescript-tools.nvim": { "branch": "master", "commit": "35e397ce467bedbbbb5bfcd0aa79727b59a08d4a" },
   "undotree": { "branch": "master", "commit": "2556c6800b210b2096b55b66e74b4cc1d9ebbe4f" },
   "venv-selector.nvim": { "branch": "regexp", "commit": "e82594274bf7b54387f9a2abe65f74909ac66e97" },
