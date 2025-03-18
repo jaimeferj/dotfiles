@@ -23,6 +23,7 @@ return {
         'javascript',
         'typescript',
         'java',
+        'json',
       },
       -- Autoinstall languages that are not installed
       auto_install = true,

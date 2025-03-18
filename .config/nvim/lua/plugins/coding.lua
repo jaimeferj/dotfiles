@@ -236,4 +236,35 @@ return {
     -- ft = {}, optionally you can load it only in jsx/html
     event = 'VeryLazy',
   },
+
+  {
+    'https://codeberg.org/esensar/nvim-dev-container',
+    dependencies = 'nvim-treesitter/nvim-treesitter',
+    opts = {
+      nvim_installation_commands_provider = function(path_binaries, version_string)
+        return {
+          { 'apt', 'install', '-y', 'neovim' },
+        }
+      end,
+      container_runtime = 'docker',
+      backup_runtime = 'docker',
+      compose_command = 'docker compose',
+    },
+  },
+
+  {
+    'amitds1997/remote-nvim.nvim',
+    version = '*', -- Pin to GitHub releases
+    dependencies = {
+      'nvim-lua/plenary.nvim', -- For standard functions
+      'MunifTanjim/nui.nvim', -- To build the plugin UI
+      'nvim-telescope/telescope.nvim', -- For picking b/w different remote methods
+    },
+    config = true,
+  },
+
+  {
+    'VPavliashvili/json-nvim',
+    ft = 'json', -- only load for json filetype
+  },
 }
