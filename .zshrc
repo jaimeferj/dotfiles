@@ -53,6 +53,11 @@ if [[ -a /etc/bash_completion.d/rabbitmqadmin ]]; then
   source /etc/bash_completion.d/rabbitmqadmin
 fi
 
+## Load winconvpath if exists
+if [[ -a ~/scripts/winpathconv.sh ]]; then
+  source ~/scripts/winpathconv.sh
+fi
+
 complete -C '/usr/local/bin/aws_completer' aws
 
 zinit cdreplay -q
@@ -96,6 +101,7 @@ alias c='clear'
 alias aenv='source .venv/bin/activate'
 alias cenv='python -m venv .venv'
 alias denv='rm -r -I -v .venv'
+alias dc='docker compose'
 
 # Shell integrations
 eval "$(fzf --zsh)"
