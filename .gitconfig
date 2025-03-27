@@ -18,4 +18,4 @@
 [init]
 	defaultBranch = main
 [branch]
-	sort = comitterdate
+	sort = committerdate
