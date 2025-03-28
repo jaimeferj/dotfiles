@@ -25,7 +25,7 @@ require('lazy').setup {
   install = { colorscheme = { 'habamax' } },
   checker = { enabled = true, notify = false },
   change_detection = { notify = false },
-  concurrency = 2,
+  concurrency = vim.uv.available_parallelism() * 2,
   {
     ui = {
       -- If you are using a Nerd Font: set icons to an empty table which will use the
