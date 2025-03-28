@@ -32,4 +32,7 @@ set_keymap('n', '<leader>xx', ':.lua<CR>')
 
 set_keymap('n', '<leader>j', '<cmd>cnext<cr>', { desc = 'Go to next quickfix' })
 set_keymap('n', '<leader>k', '<cmd>cprev<cr>', { desc = 'Go to previous quickfix' })
-set_keymap('v', '<Leader>p', '"_dP', { desc = 'Delete to register _' })
+set_keymap('v', '<leader>p', '"_dP', { desc = 'Delete to register _' })
+set_keymap('n', '<leader>cd', vim.diagnostic.open_float, { desc = 'Line Diagnostic' })
+set_keymap('n', 'gK', vim.lsp.buf.signature_help, { desc = 'Signature Help' })
+set_keymap('i', '<c-k>', vim.lsp.buf.signature_help, { desc = 'Signature Help' })
