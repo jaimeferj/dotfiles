@@ -13,6 +13,6 @@
 
 # Configure
 
-- On dotfiles: `stow .`
+- On dotfiles: `stow --dotfiles .`
 - `chsh -s /bin/zsh`
 - Do: `tmux` and execute `ctrl+space I` to install plugins
