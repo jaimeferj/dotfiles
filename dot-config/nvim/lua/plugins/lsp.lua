@@ -21,7 +21,6 @@ return {
       { 'williamboman/mason.nvim', config = true }, -- NOTE: Must be loaded before dependants
       'williamboman/mason-lspconfig.nvim',
       'WhoIsSethDaniel/mason-tool-installer.nvim',
-      'nvim-java/nvim-java',
 
       -- Useful status updates for LSP.
       -- NOTE: `opts = {}` is the same as calling `require('fidget').setup({})`
@@ -31,18 +30,23 @@ return {
       'hrsh7th/cmp-nvim-lsp',
     },
     config = function()
-      require('java').setup {
-        root_markers = {
-          'settings.gradle',
-          'settings.gradle.kts',
-          'pom.xml',
-          'build.gradle',
-          'mvnw',
-          'gradlew',
-          'build.gradle',
-          'build.gradle.kts',
-        },
-      }
+      local plugin_name = 'java'
+      local java_plugin_exists = require('lazy.core.config').plugins[plugin_name] ~= nil
+      if java_plugin_exists then
+        require('java').setup {
+          root_markers = {
+            'settings.gradle',
+            'settings.gradle.kts',
+            'pom.xml',
+            'build.gradle',
+            'mvnw',
+            'gradlew',
+            'build.gradle',
+            'build.gradle.kts',
+          },
+        }
+      end
+
       -- Thus, Language Servers are external tools that must be installed separately from
       -- Neovim. This is where `mason` and related plugins come into play.
       --
@@ -155,62 +159,31 @@ return {
       --  - capabilities (table): Override fields in capabilities. Can be used to disable certain LSP features.
       --  - settings (table): Override the default settings passed when initializing the server.
       --        For example, to see the options for `lua_ls`, you could go to: https://luals.github.io/wiki/settings/
+      -- Build a servers table by scanning the languages folder.
       local servers = {
-        -- clangd = {},
-        pyright = {
-          settings = {
-            pyright = {
-              -- Using Ruff's import organizer
-              disableOrganizeImports = true,
-            },
-            python = {
-              analysis = {
-                -- Ignore all files for analysis to exclusively use Ruff for linting
-                -- ignore = { '*' },
-              },
-            },
-          },
-          filetypes = { 'python' },
-        },
-        ruff = {
-          capabilities = { hoverProvider = false },
-          filetypes = { 'python' },
-        },
-        gopls = {
-          settings = {
-            gopls = {
-              analyses = {
-                unusedparams = true,
-              },
-              staticcheck = true,
-              gofumpt = true,
-            },
-          },
-          filetypes = { 'go' },
-        },
         -- ... etc. See `:help lspconfig-all` for a list of all the pre-configured LSPs
-        lua_ls = {
-          settings = {
-            Lua = {
-              completion = {
-                callSnippet = 'Replace',
-              },
-              -- You can toggle below to ignore Lua_LS's noisy `missing-fields` warnings
-              -- diagnostics = { disable = { 'missing-fields' } },
-            },
-          },
-        },
-        -- biome = {},
         shfmt = {},
-        sqlls = {
-          cmd = { 'sql-language-server', 'up', '--method', 'stdio' },
-          filetypes = { 'sql' },
-        },
-        jdtls = {},
-        -- postgres_lsp = {
-        --   filetypes = { 'sql' },
-        -- },
       }
+
+      -- Load Lsp configuration for languages from their config files, in their lsp key
+      local languages_path = vim.fn.stdpath 'config' .. '/lua/plugins/languages'
+      local scan = vim.loop.fs_scandir(languages_path)
+      if scan then
+        while true do
+          local name, type = vim.loop.fs_scandir_next(scan)
+          if not name then
+            break
+          end
+          -- Only process Lua files.
+          if name:sub(-4) == '.lua' then
+            local module_name = 'plugins.languages.' .. name:sub(1, -5)
+            local ok, lang_config = pcall(require, module_name)
+            if ok and lang_config.lsp then
+              servers = vim.tbl_extend('force', servers, lang_config.lsp)
+            end
+          end
+        end
+      end
 
       -- Ensure the servers and tools above are installed
       --  To check the current status of installed tools and/or manually install
@@ -262,11 +235,5 @@ return {
         },
       }
     end,
-  },
-
-  {
-    'pmizio/typescript-tools.nvim',
-    dependencies = { 'nvim-lua/plenary.nvim', 'neovim/nvim-lspconfig' },
-    opts = {},
   },
 }
