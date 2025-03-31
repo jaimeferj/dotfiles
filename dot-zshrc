@@ -109,6 +109,7 @@ eval "$(zoxide init --cmd cd zsh)"
 
 # Paths
 export PATH="$PATH:/usr/local/go/bin"
+export PATH="$PATH:$HOME/.local/bin"
 export GOPATH=$HOME/go
 export PATH="$PATH:$GOPATH/bin"
 
@@ -126,3 +127,5 @@ export EDITOR=nvim
 #THIS MUST BE AT THE END OF THE FILE FOR SDKMAN TO WORK!!!
 export SDKMAN_DIR="$HOME/.sdkman"
 [[ -s "$HOME/.sdkman/bin/sdkman-init.sh" ]] && source "$HOME/.sdkman/bin/sdkman-init.sh"
+
+. "$HOME/.local/bin/env"
