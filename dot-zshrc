@@ -38,6 +38,9 @@ autoload -Uz compinit && compinit
 autoload -z edit-command-line
 zle -N edit-command-line
 
+# Export local path before loading autocompletions
+export PATH="$PATH:$HOME/.local/bin"
+
 ## Load uv autocompletion if exists
 if [[ -a /etc/bash_completion.d/uv ]]; then
   source /etc/bash_completion.d/uv
@@ -109,7 +112,6 @@ eval "$(zoxide init --cmd cd zsh)"
 
 # Paths
 export PATH="$PATH:/usr/local/go/bin"
-export PATH="$PATH:$HOME/.local/bin"
 export GOPATH=$HOME/go
 export PATH="$PATH:$GOPATH/bin"
 
