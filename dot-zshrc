@@ -75,7 +75,6 @@ bindkey '^n' history-search-forward
 bindkey '^y' autosuggest-accept
 bindkey '^e' edit-command-line
 
-
 # History
 HISTSIZE=5000
 HISTFILE=~/.zsh_history

@@ -15,6 +15,9 @@ return {
     cmd = { 'MarkdownPreviewToggle', 'MarkdownPreview', 'MarkdownPreviewStop' },
     ft = { 'markdown' },
     build = ':call mkdp#util#install()',
+    config = function()
+      vim.g.mkdp_auto_close = 0
+    end,
   },
 
   {

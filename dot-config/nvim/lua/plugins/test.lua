@@ -2,6 +2,7 @@ return {
 
   {
     'nvim-neotest/neotest',
+    lazy = false,
     dependencies = {
       'nvim-neotest/nvim-nio',
       'nvim-lua/plenary.nvim',
@@ -98,6 +99,7 @@ return {
         adapters = {
           require 'neotest-python' {
             dap = { justMyCode = false, env = { PYTHONPATH = vim.fn.getcwd() } },
+            pytest_discover_instances = true,
             cwd = function(path)
               return vim.fn.getcwd()
             end,

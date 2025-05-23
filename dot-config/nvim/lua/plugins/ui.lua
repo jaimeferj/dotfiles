@@ -191,6 +191,26 @@ return {
       -- Enable Telescope extensions if they are installed
       pcall(require('telescope').load_extension, 'fzf')
       pcall(require('telescope').load_extension, 'ui-select')
+
+      -- Configure custom picker
+      local telescope = require 'telescope.builtin'
+
+      --- Prompt for an extension and run live_grep with a --glob filter
+      function GrepWithExtension()
+        -- ask the user for an extension (e.g. "lua", "py", "js")
+        local ext = vim.fn.input 'Grep extension (without dot): '
+        if ext == '' then
+          -- fallback to normal live_grep if no extension provided
+          telescope.live_grep()
+        else
+          telescope.live_grep {
+            prompt_title = 'Grep *.' .. ext,
+            additional_args = function()
+              return { '--glob', '*.' .. ext }
+            end,
+          }
+        end
+      end
     end,
     keys = {
       { '<leader>sh', telescope_builtin.help_tags, { desc = '[S]earch [H]elp' }, 'n' },
@@ -239,6 +259,14 @@ return {
           telescope_builtin.find_files { cwd = vim.fn.stdpath 'config' }
         end,
         { desc = '[S]earch [N]eovim files' },
+        mode = 'n',
+      },
+
+      -- Search in file extensions only
+      {
+        '<leader>se',
+        _G.GrepWithExtension,
+        { desc = '[S]earch [E]xtension' },
         mode = 'n',
       },
     },
