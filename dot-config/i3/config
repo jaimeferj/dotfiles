@@ -10,10 +10,10 @@
 # Please see https://i3wm.org/docs/userguide.html for a complete reference!
 
 # Set keyboard layout
-exec_always --no-startup-id setxkbmap -layout us -variant altgr-intl
+exec --no-startup-id setxkbmap -layout us -variant altgr-intl
 
 # Config monitor
-exec_always --no-startup-id $HOME/.config/monitor
+exec --no-startup-id $HOME/.config/setup-x11-monitor
 
 
 set $mod Mod4
@@ -64,13 +64,14 @@ floating_modifier $mod
 tiling_drag modifier titlebar
 
 # start a terminal
-bindsym $mod+Return exec alacritty
+bindsym $mod+Return exec kitty zsh -l -c "tmux attach || tmux"
 
 # kill focused window
 bindsym $mod+Shift+q kill
 
 # start dmenu (a program launcher)
-bindsym $mod+d exec --no-startup-id dmenu_run
+# bindsym $mod+d exec --no-startup-id dmenu_run
+bindsym $mod+d exec --no-startup-id i3-dmenu-desktop
 # A more modern dmenu replacement is rofi:
 # bindcode $mod+40 exec "rofi -modi drun,run -show drun"
 # There also is i3-dmenu-desktop which only displays applications shipping a
@@ -129,12 +130,12 @@ bindsym $mod+a focus parent
 
 # Define names for default workspaces for which we configure key bindings later on.
 # We use variables to avoid repeating the names in multiple places.
-set $ws1 "1"
-set $ws2 "2"
-set $ws3 "3"
+set $ws1 "1:main"
+set $ws2 "2:qsearch"
+set $ws3 "3:docs"
 set $ws4 "4"
-set $ws5 "5"
-set $ws6 "6"
+set $ws5 "5:tasks"
+set $ws6 "6:chat"
 set $ws7 "7"
 set $ws8 "8"
 set $ws9 "9"
@@ -151,6 +152,27 @@ bindsym $mod+7 workspace number $ws7
 bindsym $mod+8 workspace number $ws8
 bindsym $mod+9 workspace number $ws9
 bindsym $mod+0 workspace number $ws10
+
+# Force-create each workspace so the bar shows them all at login ─
+exec --no-startup-id i3-msg "workspace $ws1"
+exec --no-startup-id i3-msg "workspace $ws2"
+exec --no-startup-id i3-msg "workspace $ws3"
+exec --no-startup-id i3-msg "workspace $ws5"
+exec --no-startup-id i3-msg "workspace $ws1"
+
+# Workspace 1: main browser and terminal
+exec --no-startup-id i3-msg "workspace $ws1; exec firefox; exec kitty -e tmux new-session -A -s main; workspace back_and_forth"
+# Workspace 2: quick search browser (chatgpt)
+exec --no-startup-id i3-msg "workspace $ws2; exec firefox --no-remote 'ext+container:name=Personal&url=https://chatgpt.com'; workspace back_and_forth"
+# Workspace 3: docs personal y web
+exec --no-startup-id i3-msg "workspace $ws3; exec kitty -e tmux new-session -A -s code; exec firefox; workspace back_and_forth"
+# Workspace 5: tasks
+exec --no-startup-id i3-msg "workspace $ws5; exec kitty -e tmux new-session -A -s tasks taskwarrior-tui \; split-window -h; workspace back_and_forth"
+# Workspace 6: chat
+exec --no-startup-id i3-msg "workspace $ws6; exec kitty -e tmux new-session -A -s chat irssi -c irc.izakre.ovh -j "#gazellegames"; workspace back_and_forth"
+
+exec --no-startup-id $HOME/.config/i3/multi-monitor-setup.sh
+
 
 # move focused container to workspace
 bindsym $mod+Shift+1 move container to workspace number $ws1
@@ -200,6 +222,13 @@ bindsym $mod+r mode "resize"
 # Start i3bar to display a workspace bar (plus the system information i3status
 # finds out, if available)
 bar {
-        status_command i3status
+        status_command i3status -c $HOME/.config/i3status/config
         tray_output primary
 }
+exec --no-startup-id i3bar --config ~/.config/i3/i3bar.conf --log-level debug
+
+## X11 screenshots
+set $shotdir ~/Pictures
+bindsym Print exec --no-startup-id \
+        scrot -s $shotdir/%Y-%m-%d-%H%M%S.png \
+             -e 'xclip -selection clipboard -t image/png -i $f'

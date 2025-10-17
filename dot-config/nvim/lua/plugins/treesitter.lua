@@ -42,10 +42,9 @@ return {
     --    - Treesitter + textobjects: https://github.com/nvim-treesitter/nvim-treesitter-textobjects
   },
 
-  {
-    'nvim-treesitter/nvim-treesitter-context',
-  },
-  {
-    'IndianBoy42/tree-sitter-just',
-  },
+  -- Sticky context window that keeps the current function/class header visible while scrolling
+  'nvim-treesitter/nvim-treesitter-context',
+
+  -- Tree-sitter grammar for Justfiles, giving proper highlighting, folding, and text-objects
+  'IndianBoy42/tree-sitter-just',
 }

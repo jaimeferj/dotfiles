@@ -101,7 +101,7 @@ alias ls='ls --color'
 alias lla='ls -lah'
 alias nvim='nvim'
 alias c='clear'
-alias aenv='source .venv/bin/activate'
+alias aenv='source .venv/bin/activate || source venv/bin/activate'
 alias cenv='python -m venv .venv'
 alias denv='rm -r -I -v .venv'
 alias dc='docker compose'
@@ -130,5 +130,15 @@ export EDITOR=nvim
 export SDKMAN_DIR="$HOME/.sdkman"
 [[ -s "$HOME/.sdkman/bin/sdkman-init.sh" ]] && source "$HOME/.sdkman/bin/sdkman-init.sh"
 
-. "$HOME/.local/bin/env"
+[[ ! -f ~/.local/bin/env ]] || . "$HOME/.local/bin/env"
+
+
+# Load task scripts
+[[ -f $HOME/.config/task/scripts/eisenhower.zsh ]] && source $HOME/.config/task/scripts/eisenhower.zsh
+
+# Cargar todos los helpers de zsh
+for f in $HOME/.config/zsh/*.zsh(N); do
+  source $f
+done
+
 

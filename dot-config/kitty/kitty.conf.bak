@@ -278,7 +278,7 @@ bold_italic_font auto
 #: so if you want to override it, place your value after the lines
 #: where the theme file is included.
 
-cursor_shape block
+# cursor_shape block
 
 #: The cursor shape can be one of block, beam, underline. Note that
 #: when reloading the config this will be changed only if the cursor
@@ -303,7 +303,7 @@ cursor_shape block
 
 #: The thickness of the underline cursor (in pts).
 
-cursor_blink_interval 0
+# cursor_blink_interval -1
 
 #: The interval to blink the cursor (in seconds). Set to zero to
 #: disable blinking. Negative values mean use system default. Note
@@ -804,7 +804,7 @@ cursor_blink_interval 0
 
 #: Terminal bell {{{
 
-enable_audio_bell no
+# enable_audio_bell yes
 
 #: The audio bell. Useful to disable it in environments that require
 #: silence.
@@ -1255,9 +1255,6 @@ enable_audio_bell no
 # foreground #dddddd
 # background #000000
 
-foreground        #D9E0EE
-background        #1E1D2F
-
 #: The foreground and background colors.
 
 # background_opacity 1.0
@@ -1383,30 +1380,6 @@ background        #1E1D2F
 #: dull and bright version, for the first 16 colors. You can set the
 #: remaining 240 colors as color16 to color255.
 
-# Normal (0–7)
-color0  #6E6C7E
-color1  #F28FAD
-color2  #ABE9B3
-color3  #FAE3B0
-color4  #96CDFB
-color5  #F5C2E7
-color6  #89DCEB
-color7  #D9E0EE
-
-# Bright (8–15)
-color8  #988BA2
-color9  #F28FAD
-color10 #ABE9B3
-color11 #FAE3B0
-color12 #96CDFB
-color13 #F5C2E7
-color14 #89DCEB
-color15 #D9E0EE
-
-# Indexed extra colors
-color16 #F8BD96
-color17 #F5E0DC
-
 # color0 #000000
 # color8 #767676
 
@@ -1477,7 +1450,7 @@ color17 #F5E0DC
 
 #: Advanced {{{
 
-shell zsh
+# shell .
 
 #: The shell program to execute. The default value of . means to use
 #: the value of of the SHELL environment variable or if unset,
@@ -1592,8 +1565,6 @@ shell zsh
 #: supported.
 
 # env
-
-env TERM xterm-256color
 
 #: Specify the environment variables to be set in all child processes.
 #: Using the name with an equal sign (e.g. env VAR=) will set it to

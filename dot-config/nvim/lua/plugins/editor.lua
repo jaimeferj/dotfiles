@@ -17,6 +17,8 @@ return {
       -- - sr)'  - [S]urround [R]eplace [)] [']
       require('mini.surround').setup()
 
+      require('mini.indentscope').setup()
+
       -- Simple and easy statusline.
       --  You could remove this setup call if you don't like it,
       --  and try some other statusline plugin
@@ -60,8 +62,8 @@ return {
   {
     'mbbill/undotree',
     event = 'VeryLazy',
-    config = function()
-      vim.keymap.set('n', '<leader>u', vim.cmd.UndotreeToggle, { desc = 'Undotree toggle' })
-    end,
+    keys = {
+      { '<leader>u', vim.cmd.UndotreeToggle, desc = '[U]ndotree toggle', 'n' },
+    },
   },
 }

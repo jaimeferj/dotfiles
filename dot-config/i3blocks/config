@@ -1,0 +1,6 @@
+[volume]
+label=Vol
+command=~/.config/i3blocks/volume.sh
+interval=once
+signal=10
+

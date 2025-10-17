@@ -213,16 +213,16 @@ return {
       end
     end,
     keys = {
-      { '<leader>sh', telescope_builtin.help_tags, { desc = '[S]earch [H]elp' }, 'n' },
-      { '<leader>sk', telescope_builtin.keymaps, { desc = '[S]earch [K]eymaps' }, mode = 'n' },
-      { '<leader>sf', telescope_builtin.find_files, { desc = '[S]earch [F]iles' }, mode = 'n' },
-      { '<leader>ss', telescope_builtin.builtin, { desc = '[S]earch [S]elect Telescope' }, mode = 'n' },
-      { '<leader>sw', telescope_builtin.grep_string, { desc = '[S]earch current [W]ord' }, mode = 'n' },
-      { '<leader>sg', telescope_builtin.live_grep, { desc = '[S]earch by [G]rep' }, mode = 'n' },
-      { '<leader>sd', telescope_builtin.diagnostics, { desc = '[S]earch [D]iagnostics' }, mode = 'n' },
-      { '<leader>sr', telescope_builtin.resume, { desc = '[S]earch [R]esume' }, mode = 'n' },
-      { '<leader>s.', telescope_builtin.oldfiles, { desc = '[S]earch Recent Files ("." for repeat)' }, mode = 'n' },
-      { '<leader><leader>', telescope_builtin.buffers, { desc = '[ ] Find existing buffers' }, mode = 'n' },
+      { '<leader>sh', telescope_builtin.help_tags, desc = '[S]earch [H]elp', 'n' },
+      { '<leader>sk', telescope_builtin.keymaps, desc = '[S]earch [K]eymaps', mode = 'n' },
+      { '<leader>sf', telescope_builtin.find_files, desc = '[S]earch [F]iles', mode = 'n' },
+      { '<leader>ss', telescope_builtin.builtin, desc = '[S]earch [S]elect Telescope', mode = 'n' },
+      { '<leader>sw', telescope_builtin.grep_string, desc = '[S]earch current [W]ord', mode = 'n' },
+      { '<leader>sg', telescope_builtin.live_grep, desc = '[S]earch by [G]rep', mode = 'n' },
+      { '<leader>sd', telescope_builtin.diagnostics, desc = '[S]earch [D]iagnostics', mode = 'n' },
+      { '<leader>sr', telescope_builtin.resume, desc = '[S]earch [R]esume', mode = 'n' },
+      { '<leader>s.', telescope_builtin.oldfiles, desc = '[S]earch Recent Files ("." for repeat)', mode = 'n' },
+      { '<leader><leader>', telescope_builtin.buffers, desc = '[ ] Find existing buffers', mode = 'n' },
 
       -- Slightly advanced example of overriding default behavior and theme
       {
@@ -234,7 +234,7 @@ return {
             previewer = false,
           })
         end,
-        { desc = '[/] Fuzzily search in current buffer' },
+        desc = '[/] Fuzzily search in current buffer',
         mode = 'n',
       },
 
@@ -248,7 +248,7 @@ return {
             prompt_title = 'Live Grep in Open Files',
           }
         end,
-        { desc = '[S]earch [/] in Open Files' },
+        desc = '[S]earch [/] in Open Files',
         mode = 'n',
       },
 
@@ -258,7 +258,7 @@ return {
         function()
           telescope_builtin.find_files { cwd = vim.fn.stdpath 'config' }
         end,
-        { desc = '[S]earch [N]eovim files' },
+        desc = '[S]earch [N]eovim files',
         mode = 'n',
       },
 
@@ -266,7 +266,7 @@ return {
       {
         '<leader>se',
         _G.GrepWithExtension,
-        { desc = '[S]earch [E]xtension' },
+        desc = '[S]earch [E]xtension',
         mode = 'n',
       },
     },
