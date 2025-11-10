@@ -20,4 +20,4 @@
 [branch]
 	sort = committerdate
 [credential]
-	helper = /sbin/pass-git-helper
+	helper = 

@@ -105,10 +105,13 @@ alias aenv='source .venv/bin/activate || source venv/bin/activate'
 alias cenv='python -m venv .venv'
 alias denv='rm -r -I -v .venv'
 alias dc='docker compose'
+alias minimax='CLAUDE_CONFIG_DIR=~/.claude-minimax claude'
 
-# Shell integrations
-eval "$(fzf --zsh)"
-eval "$(zoxide init --cmd cd zsh)"
+# Shell integrations (interactive shells only)
+if [[ $- == *i* ]]; then
+  eval "$(fzf --zsh)"
+  eval "$(zoxide init --cmd cd zsh)"
+fi
 
 # Paths
 export PATH="$PATH:/usr/local/go/bin"
