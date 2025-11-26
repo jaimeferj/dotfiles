@@ -21,6 +21,10 @@ source "${ZINIT_HOME}/zinit.zsh"
 # Add in Powerlevel10k
 zinit ice depth=1; zinit light romkatv/powerlevel10k
 
+# Load completions
+autoload bashcompinit && bashcompinit
+autoload -Uz compinit && compinit
+
 # Add in zsh plugins
 zinit light zsh-users/zsh-syntax-highlighting
 zinit light zsh-users/zsh-completions
@@ -30,10 +34,6 @@ zinit light Aloxaf/fzf-tab
 # Add in snippets
 zinit snippet OMZP::git
 zinit snippet OMZP::sudo
-
-# Load completions
-autoload bashcompinit && bashcompinit
-autoload -Uz compinit && compinit
 
 # Load edit command line plugin
 autoload -z edit-command-line
@@ -63,6 +63,7 @@ if [[ -a ~/scripts/winpathconv.sh ]]; then
 fi
 
 complete -C '/usr/local/bin/aws_completer' aws
+compdef _files aws
 
 zinit cdreplay -q
 
@@ -106,6 +107,7 @@ alias cenv='python -m venv .venv'
 alias denv='rm -r -I -v .venv'
 alias dc='docker compose'
 alias minimax='CLAUDE_CONFIG_DIR=~/.claude-minimax claude'
+alias claude-account1="CLAUDE_CONFIG_DIR=~/.claude-account1 claude"
 
 # Shell integrations (interactive shells only)
 if [[ $- == *i* ]]; then
@@ -145,3 +147,4 @@ for f in $HOME/.config/zsh/*.zsh(N); do
 done
 
 
+export PATH=/usr/local/bin:$PATH
