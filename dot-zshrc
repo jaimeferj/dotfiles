@@ -121,8 +121,16 @@ export GOPATH=$HOME/go
 export PATH="$PATH:$GOPATH/bin"
 
 export NVM_DIR="$HOME/.nvm"
-[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
-[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+# Lazily load nvm to avoid console output during prompt init
+load_nvm() {
+  [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh" --no-use
+  [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"
+}
+
+nvm() { unset -f nvm node npm npx; load_nvm; nvm "$@"; }
+node() { unset -f nvm node npm npx; load_nvm; node "$@"; }
+npm() { unset -f nvm node npm npx; load_nvm; npm "$@"; }
+npx() { unset -f nvm node npm npx; load_nvm; npx "$@"; }
 
 export PATH="$PATH:$HOME/.node/bin"
 
