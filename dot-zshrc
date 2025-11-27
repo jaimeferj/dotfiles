@@ -113,6 +113,10 @@ alias claude-account1="CLAUDE_CONFIG_DIR=~/.claude-account1 claude"
 if [[ $- == *i* ]]; then
   eval "$(fzf --zsh)"
   eval "$(zoxide init --cmd cd zsh)"
+  # Prefer fzf-tab over legacy fzf-completion binding on <Tab>
+  if (( $+widgets[fzf-tab-complete] )); then
+    bindkey '^I' fzf-tab-complete
+  fi
 fi
 
 # Paths
