@@ -65,6 +65,8 @@ floating_modifier $mod
 
 # start a terminal
 bindsym $mod+Return exec kitty zsh -l -c "tmux attach || tmux"
+# start kitty without tmux (login shell)
+bindsym $mod+Shift+Return exec kitty -e zsh -l
 
 # kill focused window
 bindsym $mod+Shift+q kill
@@ -172,6 +174,7 @@ exec --no-startup-id i3-msg "workspace $ws5; exec kitty -e tmux new-session -A -
 exec --no-startup-id i3-msg "workspace $ws6; exec kitty -e tmux new-session -A -s chat irssi -c irc.izakre.ovh -j "#gazellegames"; workspace back_and_forth"
 
 exec --no-startup-id $HOME/.config/i3/multi-monitor-setup.sh
+include $HOME/.config/i3/work-config
 
 
 # move focused container to workspace
