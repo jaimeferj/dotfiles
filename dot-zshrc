@@ -125,6 +125,13 @@ export NVM_DIR="$HOME/.nvm"
 load_nvm() {
   [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh" --no-use
   [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"
+  if command -v nvm >/dev/null 2>&1; then
+    local default_version
+    default_version=$(nvm version default)
+    if [ "$default_version" != "none" ] && [ "$default_version" != "N/A" ]; then
+      nvm use --silent default >/dev/null
+    fi
+  fi
 }
 
 nvm() { unset -f nvm node npm npx; load_nvm; nvm "$@"; }
