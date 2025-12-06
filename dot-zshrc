@@ -138,6 +138,9 @@ load_nvm() {
   fi
 }
 
+# Load the default Node version up front so npm global binaries are on PATH immediately
+load_nvm
+
 nvm() { unset -f nvm node npm npx; load_nvm; nvm "$@"; }
 node() { unset -f nvm node npm npx; load_nvm; node "$@"; }
 npm() { unset -f nvm node npm npx; load_nvm; npm "$@"; }
